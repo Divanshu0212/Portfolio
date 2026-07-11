@@ -29,21 +29,38 @@ const projects = [
     accentBg: "rgba(0, 229, 255, 0.06)",
   },
   {
-    title: "ELIXA / EduHub",
+    title: "EduHub",
     subtitle: "13-Microservice Multi-Tenant University ERP",
     description:
-      "Multi-tenant university ERP spanning 13 microservices, winner of the MongoDB Track at HackByte 4.0 (MLH Official 2026). Led all backend architecture and AI-agent integration across service-oriented modules with large-scale databases.",
-    tech: ["Microservices", "MongoDB", "AI Agents", "Node.js", "RabbitMQ", "Docker"],
+      "Multi-tenant university ERP spanning 13 microservices across service-oriented modules with large-scale databases, winner of the MongoDB Track at HackByte 4.0 (MLH Official 2026). Led all backend architecture across the platform.",
+    tech: ["Microservices", "MongoDB", "Node.js", "RabbitMQ", "Docker"],
     highlights: [
       "🏆 MongoDB Track Winner — HackByte 4.0 (MLH)",
       "13-microservice multi-tenant architecture",
-      "Led backend architecture & AI-agent integration",
+      "Led all backend architecture design",
     ],
-    github: "https://github.com/divanshu0212",
+    github: "https://github.com/Divanshu0212/ERP",
     demo: "",
     gradient: "linear-gradient(135deg, #2979ff, #7c4dff)",
     accent: "#2979ff",
     accentBg: "rgba(41, 121, 255, 0.06)",
+  },
+  {
+    title: "ELIXA",
+    subtitle: "AI Agent Layer for the EduHub ERP",
+    description:
+      "AI-agent integration layer built for EduHub's 13-microservice ERP, part of the MongoDB Track win at HackByte 4.0 (MLH Official 2026). Orchestrates multi-agent workflows across service boundaries to automate ERP operations end-to-end.",
+    tech: ["AI Agents", "Multi-Agent Orchestration", "MongoDB", "Node.js"],
+    highlights: [
+      "🏆 MongoDB Track Winner — HackByte 4.0 (MLH)",
+      "Multi-agent orchestration across microservices",
+      "Automates ERP workflows end-to-end",
+    ],
+    github: "https://github.com/Divanshu0212/Elixa",
+    demo: "",
+    gradient: "linear-gradient(135deg, #7c4dff, #2979ff)",
+    accent: "#7c4dff",
+    accentBg: "rgba(124, 77, 255, 0.06)",
   },
   {
     title: "SalesPipe",
@@ -58,9 +75,9 @@ const projects = [
     ],
     github: "https://github.com/divanshu0212",
     demo: "",
-    gradient: "linear-gradient(135deg, #7c4dff, #00e5ff)",
-    accent: "#7c4dff",
-    accentBg: "rgba(124, 77, 255, 0.06)",
+    gradient: "linear-gradient(135deg, #00e5ff, #7c4dff)",
+    accent: "#00b8d4",
+    accentBg: "rgba(0, 184, 212, 0.06)",
   },
 ];
 
