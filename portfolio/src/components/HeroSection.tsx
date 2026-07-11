@@ -4,6 +4,46 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 const TOTAL_FRAMES = 240;
+const SCRAMBLE_CHARS = "01<>/{}[]#$_=+*";
+
+/** Decodes text character-by-character like a system booting up. */
+function useScramble(text: string, start: boolean, duration = 1400) {
+  const [output, setOutput] = useState("");
+
+  useEffect(() => {
+    if (!start) return;
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      setOutput(text);
+      return;
+    }
+
+    let raf = 0;
+    const t0 = performance.now();
+
+    const tick = (now: number) => {
+      const progress = Math.min((now - t0) / duration, 1);
+      const settled = Math.floor(progress * text.length);
+      let s = "";
+      for (let i = 0; i < text.length; i++) {
+        if (i < settled || text[i] === " ") {
+          s += text[i];
+        } else {
+          s += SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+        }
+      }
+      setOutput(s);
+      if (progress < 1) raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [start, text, duration]);
+
+  return output || text.replace(/\S/g, " ");
+}
 
 export default function HeroSection() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -13,6 +53,9 @@ export default function HeroSection() {
   const [loadProgress, setLoadProgress] = useState(0);
   const currentFrameRef = useRef(0);
   const rafRef = useRef<number>(0);
+
+  const firstName = useScramble("Divanshu", imagesLoaded, 1300);
+  const lastName = useScramble("Bhargava", imagesLoaded, 1700);
 
   // Preload all frames
   useEffect(() => {
@@ -147,28 +190,26 @@ export default function HeroSection() {
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <motion.p
-                className="text-[#00e5ff] text-sm md:text-base tracking-[0.3em] uppercase mb-4 font-medium"
-                initial={{ opacity: 0, letterSpacing: "0.5em" }}
-                animate={
-                  imagesLoaded
-                    ? { opacity: 1, letterSpacing: "0.3em" }
-                    : {}
-                }
-                transition={{ duration: 1, delay: 0.5 }}
+                className="font-mono-ui text-[#00e5ff] text-sm md:text-base mb-4 font-medium"
+                initial={{ opacity: 0 }}
+                animate={imagesLoaded ? { opacity: 1 } : {}}
+                transition={{ duration: 0.6, delay: 0.4 }}
               >
-                Hello, I&apos;m
+                <span className="text-[#546e7a]">~/portfolio</span> $ whoami
+                <span className="cursor-blink" />
               </motion.p>
             </motion.div>
 
             <motion.h1
-              className="text-5xl md:text-7xl lg:text-8xl font-black mb-6"
+              className="font-display text-5xl md:text-7xl lg:text-8xl font-extrabold mb-6"
               initial={{ opacity: 0, y: 40 }}
               animate={imagesLoaded ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              style={{ fontVariantNumeric: "tabular-nums" }}
             >
-              <span className="gradient-text text-glow-strong">Divanshu</span>
+              <span className="gradient-text text-glow-strong">{firstName}</span>
               <br />
-              <span className="text-white/90">Bhargava</span>
+              <span className="text-white/90">{lastName}</span>
             </motion.h1>
 
             <motion.p
@@ -177,9 +218,9 @@ export default function HeroSection() {
               animate={imagesLoaded ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.9 }}
             >
-              CSE Pre-Final Year @ IIIT Jabalpur | Data Analyst &
-              Full-Stack Developer | Building intelligent systems with ML &
-              Analytics
+              Final-Year CSE @ IIIT Jabalpur | GenAI & Agentic AI Engineer |
+              Building high-performance distributed systems &amp; full-stack
+              platforms at scale
             </motion.p>
 
             <motion.div

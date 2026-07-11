@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Syne, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -7,15 +7,29 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+const syne = Syne({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-syne",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-jbmono",
+});
+
 export const metadata: Metadata = {
   title: "Divanshu Bhargava | Portfolio",
   description:
-    "Portfolio of Divanshu Bhargava - CSE student at IIIT Jabalpur. Full-stack developer, data analyst, and competitive programmer.",
+    "Portfolio of Divanshu Bhargava - Final-year CSE student at IIIT Jabalpur. GenAI & Agentic AI engineer, full-stack developer, and competitive programmer building distributed systems at scale.",
   keywords: [
     "Divanshu Bhargava",
     "Portfolio",
-    "Developer",
-    "Data Analyst",
+    "GenAI",
+    "Agentic AI",
+    "Full-Stack Developer",
+    "Microservices",
     "Machine Learning",
     "IIIT Jabalpur",
   ],
@@ -28,7 +42,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} antialiased`}>{children}</body>
+      <body
+        className={`${inter.variable} ${syne.variable} ${jetbrainsMono.variable} antialiased`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

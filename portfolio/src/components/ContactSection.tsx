@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import SectionHeading from "./SectionHeading";
 
 const contactLinks = [
   {
@@ -28,7 +29,7 @@ const contactLinks = [
   {
     label: "LinkedIn",
     value: "Divanshu Bhargava",
-    href: "https://linkedin.com/in/divanshu-bhargava",
+    href: "https://linkedin.com/in/divanshu0212",
     iconPath: "M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z",
     fill: true,
   },
@@ -54,24 +55,54 @@ export default function ContactSection() {
       }}
     >
       <div ref={ref} style={{ maxWidth: "900px", margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 2 }}>
-        {/* Section Title */}
+        <SectionHeading
+          eyebrow="// open_to_work"
+          plain="Get In"
+          accent="Touch"
+          isInView={isInView}
+          align="center"
+        />
+
+        {/* Big email CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          style={{ textAlign: "center", marginBottom: "64px" }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          style={{ textAlign: "center", marginTop: "-24px", marginBottom: "64px" }}
         >
-          <p style={{ color: "#00e5ff", fontSize: "13px", letterSpacing: "0.3em", textTransform: "uppercase", marginBottom: "12px", fontWeight: 500 }}>
-            {"// Let's Connect"}
+          <p style={{ color: "#80cbc4", maxWidth: "520px", margin: "0 auto 28px", fontSize: "15px", lineHeight: 1.7 }}>
+            Open to internships, full-time roles, and collaborations.
+            The fastest way to reach me:
           </p>
-          <h2 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, color: "white", lineHeight: 1.2, marginBottom: "16px" }}>
-            Get In <span className="gradient-text">Touch</span>
-          </h2>
-          <p style={{ color: "#80cbc4", maxWidth: "500px", margin: "0 auto", fontSize: "15px", lineHeight: 1.7 }}>
-            I&apos;m always open to discussing new opportunities, interesting projects,
-            or collaborations. Feel free to reach out!
-          </p>
-          <div style={{ width: "80px", height: "3px", background: "linear-gradient(90deg, #00e5ff, #2979ff)", borderRadius: "2px", margin: "20px auto 0" }} />
+          <motion.a
+            href="mailto:divanshu0212@gmail.com"
+            className="font-display"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "14px",
+              fontSize: "clamp(20px, 3.6vw, 36px)",
+              fontWeight: 800,
+              color: "white",
+              textDecoration: "none",
+              borderBottom: "2px solid rgba(0, 229, 255, 0.35)",
+              paddingBottom: "6px",
+              transition: "border-color 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderBottomColor = "#00e5ff";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderBottomColor = "rgba(0, 229, 255, 0.35)";
+            }}
+          >
+            divanshu0212@gmail.com
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" strokeWidth="2.5">
+              <path d="M7 17L17 7M17 7H8M17 7v9" />
+            </svg>
+          </motion.a>
         </motion.div>
 
         {/* Contact Cards Grid */}

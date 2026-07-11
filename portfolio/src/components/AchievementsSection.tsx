@@ -2,50 +2,51 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import SectionHeading from "./SectionHeading";
 
 const achievements = [
   {
-    title: "HackByte 3.0",
-    highlight: "Top 8 among 1,200+ teams",
+    title: "Cognizance 2026, IIT Roorkee",
+    highlight: "🥇 1st Place — Asia's 2nd-largest student tech fest",
     description:
-      "Secured top 8 position among elite 120 teams selected from over 1,200 participating teams nationwide, demonstrating exceptional analytical problem-solving skills.",
+      "Won 1st place by creating Delivrd, an agentic AI payment and verification platform with cryptographic escrow, at Asia's second-largest student-run tech fest.",
     icon: "🏆",
     color: "#FFD700",
     bg: "rgba(255, 215, 0, 0.06)",
   },
   {
-    title: "Flipkart Grid 7.0",
-    highlight: "Semi-finalist",
+    title: "HackByte 4.0 (MLH Official 2026)",
+    highlight: "MongoDB Track Winner | Top 8 at HackByte 3.0",
     description:
-      "Semi-finalist in one of India's largest tech challenges, showcasing advanced problem-solving capabilities and technical expertise in competitive programming.",
-    icon: "🚀",
+      "Won the MongoDB Track with ELIXA, leading all backend architecture and AI-agent integration. Also placed Top 8 at HackByte 3.0 among 120 teams selected from 1,200+ nationwide participants.",
+    icon: "🥇",
     color: "#00e5ff",
     bg: "rgba(0, 229, 255, 0.06)",
   },
   {
     title: "Competitive Programming",
-    highlight: "Knight Badge | 4★ CodeChef | Pupil Codeforces",
+    highlight: "LeetCode Knight | 4★ CodeChef | Codeforces Pupil",
     description:
-      "Achieved Knight badge on LeetCode, attained 4-star rating on CodeChef, and reached Pupil rating on Codeforces, demonstrating strong problem-solving abilities.",
+      "Achieved Knight badge on LeetCode, 4-star rating on CodeChef, and Pupil rating on Codeforces — demonstrating strong DSA and algorithmic problem-solving skills.",
     icon: "⚡",
     color: "#7c4dff",
     bg: "rgba(124, 77, 255, 0.06)",
   },
   {
-    title: "Leadership & Communication",
-    highlight: "City-wide Debate Initiative — 20+ Teams",
+    title: "Flipkart Grid 7.0",
+    highlight: "Semi-finalist",
     description:
-      "Piloted city-wide debate initiative involving 20+ competing teams, demonstrating stakeholder management and communication skills.",
-    icon: "🎤",
+      "Semi-finalist in one of India's largest engineering challenges, competing in advanced system design and competitive programming.",
+    icon: "🚀",
     color: "#2979ff",
     bg: "rgba(41, 121, 255, 0.06)",
   },
   {
-    title: "Technical Innovation",
-    highlight: "Robo Rush 2024 — 5th out of 50+ Teams",
+    title: "Leadership & Communication",
+    highlight: "City-wide Debate Initiative — 20+ Teams",
     description:
-      "Built a line-following, remote-controlled robot car that can pick up and move weights over long distances at IIITDMJ's Robo Rush 2024 competition.",
-    icon: "🤖",
+      "Piloted a city-wide debate initiative involving 20+ competing teams, building stakeholder management and communication skills.",
+    icon: "🎤",
     color: "#00e5ff",
     bg: "rgba(0, 229, 255, 0.06)",
   },
@@ -77,21 +78,13 @@ export default function AchievementsSection() {
       />
 
       <div ref={ref} style={{ maxWidth: "900px", margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 2 }}>
-        {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          style={{ marginBottom: "64px" }}
-        >
-          <p style={{ color: "#00e5ff", fontSize: "13px", letterSpacing: "0.3em", textTransform: "uppercase", marginBottom: "12px", fontWeight: 500 }}>
-            {"// Milestones"}
-          </p>
-          <h2 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, color: "white", lineHeight: 1.2 }}>
-            Key <span className="gradient-text">Achievements</span>
-          </h2>
-          <div style={{ width: "80px", height: "3px", background: "linear-gradient(90deg, #FFD700, #00e5ff)", borderRadius: "2px", marginTop: "16px" }} />
-        </motion.div>
+        <SectionHeading
+          eyebrow="// milestones"
+          plain="Key"
+          accent="Achievements"
+          isInView={isInView}
+          barGradient="linear-gradient(90deg, #FFD700, #00e5ff)"
+        />
 
         {/* Timeline */}
         <div style={{ position: "relative" }}>
@@ -170,7 +163,7 @@ export default function AchievementsSection() {
 
                     {/* Content */}
                     <div style={{ flex: 1 }}>
-                      <h3 style={{ color: "white", fontSize: "18px", fontWeight: 700, marginBottom: "4px" }}>
+                      <h3 className="font-display" style={{ color: "white", fontSize: "18px", fontWeight: 700, marginBottom: "4px" }}>
                         {a.title}
                       </h3>
                       <p style={{ color: a.color, fontSize: "13px", fontWeight: 600, marginBottom: "10px", letterSpacing: "0.02em" }}>

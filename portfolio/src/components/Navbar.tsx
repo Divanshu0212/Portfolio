@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const navItems = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
+  { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
   { label: "Achievements", href: "#achievements" },
@@ -52,7 +53,7 @@ export default function Navbar() {
           {/* Logo */}
           <motion.a
             href="#home"
-            className="text-2xl font-bold gradient-text tracking-tight"
+            className="font-mono-ui text-2xl font-bold gradient-text tracking-tight"
             whileHover={{ scale: 1.05 }}
           >
             {"<DB />"}
@@ -60,19 +61,36 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className={`nav-link text-sm font-medium tracking-wide uppercase ${
-                  activeSection === item.href.replace("#", "")
-                    ? "!text-[#00e5ff]"
-                    : ""
-                }`}
-              >
-                {item.label}
-              </a>
-            ))}
+            {navItems.map((item) => {
+              const isActive = activeSection === item.href.replace("#", "");
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className={`nav-link relative text-sm font-medium tracking-wide uppercase ${
+                    isActive ? "!text-[#00e5ff]" : ""
+                  }`}
+                >
+                  {item.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-underline"
+                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                      style={{
+                        position: "absolute",
+                        left: 0,
+                        right: 0,
+                        bottom: "-6px",
+                        height: "2px",
+                        background: "#00e5ff",
+                        borderRadius: "2px",
+                        boxShadow: "0 0 10px #00e5ff",
+                      }}
+                    />
+                  )}
+                </a>
+              );
+            })}
             <motion.a
               href="/resume.pdf"
               target="_blank"

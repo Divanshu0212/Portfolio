@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import SectionHeading from "./SectionHeading";
 
 const cardStyle: React.CSSProperties = {
   background: "linear-gradient(135deg, rgba(10, 25, 50, 0.9), rgba(5, 15, 35, 0.8))",
@@ -14,117 +15,84 @@ const cardStyle: React.CSSProperties = {
 
 const skillCategories = [
   {
-    title: "Programming Languages",
-    icon: "⟨/⟩",
+    title: "Languages",
+    glyph: "</>",
     color: "#00e5ff",
-    skills: [
-      { name: "Python", level: 90 },
-      { name: "SQL", level: 85 },
-      { name: "JavaScript", level: 80 },
-      { name: "C++", level: 75 },
-    ],
+    skills: ["C++", "Java", "Python", "TypeScript", "JavaScript", "SQL"],
   },
   {
-    title: "Data & Visualization",
-    icon: "📊",
-    color: "#2979ff",
-    skills: [
-      { name: "Tableau", level: 85 },
-      { name: "Pandas / NumPy", level: 88 },
-      { name: "Matplotlib / Plotly", level: 82 },
-      { name: "Excel", level: 80 },
-    ],
-  },
-  {
-    title: "Machine Learning",
-    icon: "🧠",
+    title: "GenAI & Agentic AI",
+    glyph: "~>",
     color: "#7c4dff",
     skills: [
-      { name: "Scikit-learn", level: 85 },
-      { name: "TensorFlow", level: 75 },
-      { name: "Statistical Modeling", level: 80 },
-      { name: "Predictive Analytics", level: 78 },
+      "LLM Orchestration",
+      "Multi-Agent Systems",
+      "RAG",
+      "LangChain",
+      "LangGraph",
+      "Prompt Engineering",
+      "Gemini API",
+      "Groq / LLaMA",
     ],
   },
   {
-    title: "Databases & Tools",
-    icon: "🗄️",
-    color: "#00e5ff",
-    skills: [
-      { name: "PostgreSQL / MySQL", level: 85 },
-      { name: "MongoDB", level: 78 },
-      { name: "Git", level: 88 },
-      { name: "RESTful APIs", level: 82 },
-    ],
-  },
-  {
-    title: "Core CS Concepts",
-    icon: "⚙️",
+    title: "Backend & APIs",
+    glyph: "{}",
     color: "#2979ff",
     skills: [
-      { name: "DSA", level: 85 },
-      { name: "DBMS", level: 82 },
-      { name: "Statistical Analysis", level: 80 },
-      { name: "Query Optimization", level: 75 },
+      "Node.js",
+      "Express.js",
+      "FastAPI",
+      "Django",
+      "Next.js",
+      "Microservices",
+      "RESTful APIs",
     ],
   },
   {
-    title: "Soft Skills",
-    icon: "💡",
+    title: "Databases",
+    glyph: "::",
+    color: "#00e5ff",
+    skills: [
+      "PostgreSQL",
+      "MongoDB Atlas",
+      "MySQL",
+      "Query Optimization",
+      "Schema Design",
+    ],
+  },
+  {
+    title: "DevOps & Tools",
+    glyph: "$_",
+    color: "#2979ff",
+    skills: [
+      "Docker",
+      "Kubernetes",
+      "CI/CD",
+      "GitHub Actions",
+      "RabbitMQ",
+      "Redis",
+      "Celery",
+      "Prometheus",
+      "Grafana",
+      "JWT",
+    ],
+  },
+  {
+    title: "AI / ML & Data",
+    glyph: "%",
     color: "#7c4dff",
     skills: [
-      { name: "Problem Solving", level: 92 },
-      { name: "Analytical Thinking", level: 90 },
-      { name: "Communication", level: 85 },
-      { name: "Data Storytelling", level: 88 },
+      "Scikit-learn",
+      "TensorFlow",
+      "Pandas",
+      "NumPy",
+      "Predictive Modeling",
+      "Tableau",
+      "Plotly",
     ],
   },
 ];
-
-function SkillBar({
-  name,
-  level,
-  color,
-  delay,
-  isInView,
-}: {
-  name: string;
-  level: number;
-  color: string;
-  delay: number;
-  isInView: boolean;
-}) {
-  return (
-    <div style={{ marginBottom: "14px" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
-        <span style={{ fontSize: "13px", color: "#b2dfdb", fontWeight: 500 }}>{name}</span>
-        <span style={{ fontSize: "12px", color, fontFamily: "monospace", fontWeight: 600 }}>{level}%</span>
-      </div>
-      <div
-        style={{
-          height: "6px",
-          background: "rgba(10, 22, 40, 0.8)",
-          borderRadius: "10px",
-          overflow: "hidden",
-          border: "1px solid rgba(255,255,255,0.04)",
-        }}
-      >
-        <motion.div
-          className="skill-bar-fill"
-          initial={{ width: 0 }}
-          animate={isInView ? { width: `${level}%` } : { width: 0 }}
-          transition={{ duration: 1.2, delay, ease: "easeOut" }}
-          style={{
-            height: "100%",
-            borderRadius: "10px",
-            background: `linear-gradient(90deg, ${color}, ${color}88)`,
-            boxShadow: `0 0 8px ${color}40`,
-          }}
-        />
-      </div>
-    </div>
-  );
-}
 
 export default function SkillsSection() {
   const ref = useRef(null);
@@ -140,21 +108,12 @@ export default function SkillsSection() {
       }}
     >
       <div ref={ref} style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 2 }}>
-        {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          style={{ marginBottom: "64px" }}
-        >
-          <p style={{ color: "#00e5ff", fontSize: "13px", letterSpacing: "0.3em", textTransform: "uppercase", marginBottom: "12px", fontWeight: 500 }}>
-            {"// What I Know"}
-          </p>
-          <h2 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, color: "white", lineHeight: 1.2 }}>
-            Skills & <span className="gradient-text">Expertise</span>
-          </h2>
-          <div style={{ width: "80px", height: "3px", background: "linear-gradient(90deg, #00e5ff, #2979ff)", borderRadius: "2px", marginTop: "16px" }} />
-        </motion.div>
+        <SectionHeading
+          eyebrow="// tech_stack"
+          plain="Skills &"
+          accent="Expertise"
+          isInView={isInView}
+        />
 
         {/* Skills Grid */}
         <div
@@ -178,23 +137,69 @@ export default function SkillsSection() {
               style={cardStyle}
             >
               {/* Card Header */}
-              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "24px", paddingBottom: "16px", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-                <span style={{ fontSize: "28px", lineHeight: 1 }}>{category.icon}</span>
-                <h3 style={{ color: "white", fontWeight: 700, fontSize: "16px" }}>{category.title}</h3>
+              <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "22px", paddingBottom: "16px", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+                <span
+                  className="font-mono-ui"
+                  style={{
+                    fontSize: "15px",
+                    fontWeight: 700,
+                    color: category.color,
+                    background: `${category.color}10`,
+                    border: `1px solid ${category.color}25`,
+                    borderRadius: "10px",
+                    width: "42px",
+                    height: "42px",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    textShadow: `0 0 12px ${category.color}80`,
+                  }}
+                >
+                  {category.glyph}
+                </span>
+                <h3 className="font-display" style={{ color: "white", fontWeight: 700, fontSize: "17px" }}>
+                  {category.title}
+                </h3>
                 <div style={{ marginLeft: "auto", width: "8px", height: "8px", borderRadius: "50%", background: category.color, boxShadow: `0 0 8px ${category.color}` }} />
               </div>
 
-              {/* Skill Bars */}
-              {category.skills.map((skill, skillIdx) => (
-                <SkillBar
-                  key={skill.name}
-                  name={skill.name}
-                  level={skill.level}
-                  color={category.color}
-                  delay={catIdx * 0.12 + skillIdx * 0.08}
-                  isInView={isInView}
-                />
-              ))}
+              {/* Skill Chips */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                {category.skills.map((skill, skillIdx) => (
+                  <motion.span
+                    key={skill}
+                    className="skill-chip font-mono-ui"
+                    initial={{ opacity: 0, scale: 0.85 }}
+                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{
+                      duration: 0.35,
+                      delay: catIdx * 0.1 + 0.25 + skillIdx * 0.04,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    whileHover={{
+                      backgroundColor: `${category.color}18`,
+                      borderColor: `${category.color}60`,
+                      boxShadow: `0 4px 16px ${category.color}20`,
+                      color: "#ffffff",
+                    }}
+                    style={{
+                      padding: "7px 14px",
+                      fontSize: "12px",
+                      fontWeight: 500,
+                      letterSpacing: "0.02em",
+                      borderRadius: "8px",
+                      border: "1px solid rgba(255, 255, 255, 0.08)",
+                      background: "rgba(255, 255, 255, 0.03)",
+                      color: "#b2dfdb",
+                      cursor: "default",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {skill}
+                  </motion.span>
+                ))}
+              </div>
             </motion.div>
           ))}
         </div>

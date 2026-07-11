@@ -1,36 +1,43 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { useRef } from "react";
+import SectionHeading from "./SectionHeading";
 
 const projects = [
   {
-    title: "BigDocs",
-    subtitle: "Healthcare Management System",
+    title: "Delivrd",
+    subtitle: "Agentic AI Payment & Verification Platform",
     description:
-      "Comprehensive healthcare analytics platform featuring AI disease prediction with 92% accuracy across 100+ diseases. Built real-time appointment system supporting 50+ concurrent users with data-driven insights for managing 1000+ medical records daily.",
-    tech: ["Python", "ML", "Statistical Modeling", "Data Analytics", "Real-time Systems"],
+      "Autonomous AI payment platform with cryptographic escrow that won 1st place at Cognizance 2026, IIT Roorkee — Asia's second-largest student-run tech fest. Agentic workflows drive verification and settlement end-to-end with zero manual intervention.",
+    tech: ["Agentic AI", "LLM Orchestration", "Cryptographic Escrow", "FastAPI", "Multi-Agent"],
     highlights: [
-      "92% AI accuracy across 100+ diseases",
-      "50+ concurrent users supported",
-      "1000+ daily medical records",
+      "🏆 1st place — Cognizance 2026, IIT Roorkee",
+      "Autonomous agentic payment workflows",
+      "Cryptographic escrow verification",
     ],
     github: "https://github.com/divanshu0212",
-    demo: "#",
+    demo: "",
     gradient: "linear-gradient(135deg, #00e5ff, #2979ff)",
     accent: "#00e5ff",
     accentBg: "rgba(0, 229, 255, 0.06)",
   },
   {
-    title: "TrackFolio",
-    subtitle: "AI-Powered Career Analytics Platform",
+    title: "ELIXA / EduHub",
+    subtitle: "13-Microservice Multi-Tenant University ERP",
     description:
-      "Sophisticated ATS tracking system with multi-dimensional scoring across 15+ parameters, achieving 12% improvement in compatibility scores. Implemented intelligent data processing pipelines delivering 3.2x improvement in system performance.",
-    tech: ["NLP", "TF-IDF", "Semantic Similarity", "Cosine Similarity", "Analytics"],
+      "Multi-tenant university ERP spanning 13 microservices, winner of the MongoDB Track at HackByte 4.0 (MLH Official 2026). Led all backend architecture and AI-agent integration across service-oriented modules with large-scale databases.",
+    tech: ["Microservices", "MongoDB", "AI Agents", "Node.js", "RabbitMQ", "Docker"],
     highlights: [
-      "15+ parameter scoring system",
-      "89% accuracy improvement via NLP & ML",
-      "3.2x performance improvement",
+      "🏆 MongoDB Track Winner — HackByte 4.0 (MLH)",
+      "13-microservice multi-tenant architecture",
+      "Led backend architecture & AI-agent integration",
     ],
     github: "https://github.com/divanshu0212",
     demo: "",
@@ -39,18 +46,18 @@ const projects = [
     accentBg: "rgba(41, 121, 255, 0.06)",
   },
   {
-    title: "Plant Z",
-    subtitle: "AI-Powered Plant Healthcare Analytics",
+    title: "SalesPipe",
+    subtitle: "Multi-Tenant B2B Sales CRM (Event-Driven)",
     description:
-      "CNN-based ML pipeline achieving 98% accuracy on 87K+ plant disease images. Designed analytics dashboard for tracking engagement, care patterns, and community data. Integrated Gemini API with conversation analytics and token optimization.",
-    tech: ["CNN", "TensorFlow", "Gemini API", "Data Viz", "Predictive Analytics"],
+      "Modular monolith B2B Sales CRM spanning 10 domain modules with compile-time boundary enforcement (Spring Modulith + ArchUnit), deployed on Kubernetes with HPA autoscaling. Transactional-outbox event backbone (Debezium CDC → Kafka) with idempotent, dedupe-backed consumers, plus an AI lead-scoring pipeline fusing Sentence-BERT embeddings with XGBoost/LightGBM behind a Resilience4j circuit breaker.",
+    tech: ["Java 21", "Spring Boot 3", "Kafka", "Debezium CDC", "Kubernetes", "Sentence-BERT", "XGBoost"],
     highlights: [
-      "98% accuracy on 87K+ images",
-      "Gemini API integration",
-      "Analytics dashboard with KPIs",
+      "10 domain modules, boundary-enforced",
+      "Debezium CDC → Kafka outbox event backbone",
+      "AI lead-scoring gated on AUC-ROC & precision@k",
     ],
     github: "https://github.com/divanshu0212",
-    demo: "#",
+    demo: "",
     gradient: "linear-gradient(135deg, #7c4dff, #00e5ff)",
     accent: "#7c4dff",
     accentBg: "rgba(124, 77, 255, 0.06)",
@@ -61,39 +68,86 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
+  // Cursor-tracked spotlight + 3D tilt
+  const spotX = useMotionValue(0);
+  const spotY = useMotionValue(0);
+  const spotOpacity = useMotionValue(0);
+  const tiltX = useSpring(useMotionValue(0), { stiffness: 200, damping: 24 });
+  const tiltY = useSpring(useMotionValue(0), { stiffness: 200, damping: 24 });
+  const spotlight = useTransform(
+    [spotX, spotY],
+    ([x, y]) =>
+      `radial-gradient(420px circle at ${x}px ${y}px, ${project.accent}14, transparent 65%)`
+  );
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    spotX.set(x);
+    spotY.set(y);
+    tiltX.set(((y - rect.height / 2) / rect.height) * -4);
+    tiltY.set(((x - rect.width / 2) / rect.width) * 4);
+  };
+
+  const handleMouseLeave = () => {
+    spotOpacity.set(0);
+    tiltX.set(0);
+    tiltY.set(0);
+  };
+
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 60 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: index * 0.15 }}
+      style={{ perspective: "1000px" }}
     >
       <motion.div
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => spotOpacity.set(1)}
+        onMouseLeave={handleMouseLeave}
         whileHover={{
           borderColor: `${project.accent}40`,
           boxShadow: `0 8px 40px ${project.accent}15, 0 0 0 1px ${project.accent}20`,
-          y: -8,
         }}
         style={{
+          rotateX: tiltX,
+          rotateY: tiltY,
+          transformStyle: "preserve-3d",
           background: "linear-gradient(135deg, rgba(10, 25, 50, 0.9), rgba(5, 15, 35, 0.8))",
           backdropFilter: "blur(20px)",
           border: "1px solid rgba(0, 229, 255, 0.08)",
           borderRadius: "20px",
           overflow: "hidden",
-          transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
           height: "100%",
           display: "flex",
           flexDirection: "column",
+          position: "relative",
         }}
       >
+        {/* Spotlight overlay */}
+        <motion.div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: spotlight,
+            opacity: spotOpacity,
+            pointerEvents: "none",
+            zIndex: 1,
+            transition: "opacity 0.3s ease",
+          }}
+        />
         {/* Top accent bar */}
-        <div style={{ height: "3px", background: project.gradient }} />
+        <div style={{ height: "3px", background: project.gradient, position: "relative", zIndex: 2 }} />
 
-        <div style={{ padding: "32px", flex: 1, display: "flex", flexDirection: "column" }}>
+        <div style={{ padding: "32px", flex: 1, display: "flex", flexDirection: "column", position: "relative", zIndex: 2 }}>
           {/* Header */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "16px" }}>
             <div>
-              <h3 style={{ color: "white", fontSize: "22px", fontWeight: 800, marginBottom: "4px" }}>
+              <h3 className="font-display" style={{ color: "white", fontSize: "22px", fontWeight: 800, marginBottom: "4px" }}>
                 {project.title}
               </h3>
               <p style={{ color: project.accent, fontSize: "13px", fontWeight: 600, letterSpacing: "0.02em" }}>
@@ -219,21 +273,13 @@ export default function ProjectsSection() {
       />
 
       <div ref={ref} style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 2 }}>
-        {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          style={{ marginBottom: "64px" }}
-        >
-          <p style={{ color: "#00e5ff", fontSize: "13px", letterSpacing: "0.3em", textTransform: "uppercase", marginBottom: "12px", fontWeight: 500 }}>
-            {"// What I've Built"}
-          </p>
-          <h2 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, color: "white", lineHeight: 1.2 }}>
-            Featured <span className="gradient-text">Projects</span>
-          </h2>
-          <div style={{ width: "80px", height: "3px", background: "linear-gradient(90deg, #00e5ff, #7c4dff)", borderRadius: "2px", marginTop: "16px" }} />
-        </motion.div>
+        <SectionHeading
+          eyebrow="// shipped"
+          plain="Featured"
+          accent="Projects"
+          isInView={isInView}
+          barGradient="linear-gradient(90deg, #00e5ff, #7c4dff)"
+        />
 
         {/* Projects Grid */}
         <div

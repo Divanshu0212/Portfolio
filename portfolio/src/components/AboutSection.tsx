@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import SectionHeading from "./SectionHeading";
 
 const cardStyle: React.CSSProperties = {
   background: "linear-gradient(135deg, rgba(10, 25, 50, 0.9), rgba(5, 15, 35, 0.8))",
@@ -12,9 +13,9 @@ const cardStyle: React.CSSProperties = {
 };
 
 const stats = [
-  { value: "3+", label: "Projects Delivered" },
-  { value: "92%", label: "AI Accuracy" },
-  { value: "4★", label: "CodeChef Rating" },
+  { value: "1st", label: "Cognizance 2026, IIT Roorkee" },
+  { value: "13", label: "Microservice University ERP" },
+  { value: "4★", label: "CodeChef | LeetCode Knight" },
 ];
 
 export default function AboutSection() {
@@ -43,21 +44,12 @@ export default function AboutSection() {
       />
 
       <div ref={ref} style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 2 }}>
-        {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          style={{ marginBottom: "64px" }}
-        >
-          <p style={{ color: "#00e5ff", fontSize: "13px", letterSpacing: "0.3em", textTransform: "uppercase", marginBottom: "12px", fontWeight: 500 }}>
-            {"// Who I Am"}
-          </p>
-          <h2 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, color: "white", lineHeight: 1.2 }}>
-            About <span className="gradient-text">Me</span>
-          </h2>
-          <div style={{ width: "80px", height: "3px", background: "linear-gradient(90deg, #00e5ff, #2979ff)", borderRadius: "2px", marginTop: "16px" }} />
-        </motion.div>
+        <SectionHeading
+          eyebrow="// whoami"
+          plain="About"
+          accent="Me"
+          isInView={isInView}
+        />
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "48px" }}>
           {/* Bio */}
@@ -71,16 +63,18 @@ export default function AboutSection() {
                 {/* Left text */}
                 <div>
                   <p style={{ color: "#b2dfdb", fontSize: "17px", lineHeight: 1.8, marginBottom: "16px" }}>
-                    I&apos;m a <span style={{ color: "#00e5ff", fontWeight: 700 }}>Pre-Final Year CSE student</span> at
-                    the Indian Institute of Information Technology, Jabalpur. I&apos;m passionate about
-                    leveraging technology to solve real-world problems through data analytics,
-                    machine learning, and full-stack development.
+                    I&apos;m a <span style={{ color: "#00e5ff", fontWeight: 700 }}>Final-Year CSE student</span> at
+                    the Indian Institute of Information Technology, Jabalpur, with a strong foundation
+                    in Data Structures, Algorithms, OOP, and full-stack development at scale. I build
+                    high-performance, distributed systems powered by
+                    <span style={{ color: "#00e5ff", fontWeight: 700 }}> Generative AI</span> and
+                    <span style={{ color: "#00e5ff", fontWeight: 700 }}> Agentic AI</span> integrations.
                   </p>
                   <p style={{ color: "#80cbc4", fontSize: "15px", lineHeight: 1.8 }}>
-                    With experience building healthcare platforms, AI-powered analytics tools, and
-                    competitive programming solutions, I thrive at the intersection of data science
-                    and software engineering. I love turning complex datasets into actionable insights
-                    and building systems that scale.
+                    I&apos;ve shipped an autonomous AI payment platform (1st place, IIT Roorkee Cognizance
+                    2026), a 13-microservice multi-tenant university ERP, and event-driven backends with
+                    LLM orchestration and multi-agent systems. AEH Intern at Accenture, LeetCode Knight,
+                    and a CodeChef 4-star competitive programmer — with a self-driven, ownership-first mindset.
                   </p>
                 </div>
 
@@ -105,7 +99,7 @@ export default function AboutSection() {
                         transition: "all 0.3s ease",
                       }}
                     >
-                      <span className="gradient-text" style={{ fontSize: "32px", fontWeight: 800, minWidth: "60px" }}>
+                      <span className="gradient-text font-display" style={{ fontSize: "32px", fontWeight: 800, minWidth: "60px" }}>
                         {stat.value}
                       </span>
                       <span style={{ color: "#80cbc4", fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 500 }}>
@@ -149,7 +143,7 @@ export default function AboutSection() {
                 <p style={{ color: "#00e5ff", fontSize: "14px", marginBottom: "4px", fontWeight: 500 }}>
                   B.Tech in Computer Science & Engineering
                 </p>
-                <p style={{ color: "#80cbc4", fontSize: "13px" }}>Pre-Final Year</p>
+                <p style={{ color: "#80cbc4", fontSize: "13px" }}>Final Year &middot; CPI: 7.8/10</p>
                 <div style={{ marginTop: "12px", paddingTop: "12px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
                   <span style={{ color: "#546e7a", fontSize: "12px" }}>📍 Jabalpur, India</span>
                 </div>

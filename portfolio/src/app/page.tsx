@@ -6,6 +6,7 @@ import ParticleBackground from "@/components/ParticleBackground";
 
 const HeroSection = dynamic(() => import("@/components/HeroSection"), { ssr: false });
 const AboutSection = dynamic(() => import("@/components/AboutSection"), { ssr: false });
+const ExperienceSection = dynamic(() => import("@/components/ExperienceSection"), { ssr: false });
 const SkillsSection = dynamic(() => import("@/components/SkillsSection"), { ssr: false });
 const ProjectsSection = dynamic(() => import("@/components/ProjectsSection"), { ssr: false });
 const AchievementsSection = dynamic(() => import("@/components/AchievementsSection"), { ssr: false });
@@ -24,6 +25,7 @@ export default function Home() {
         <ParticleBackground />
         <div style={{ position: "relative", zIndex: 2 }}>
           <AboutSection />
+          <ExperienceSection />
           <SkillsSection />
           <ProjectsSection />
           <AchievementsSection />
